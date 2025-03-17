@@ -19,6 +19,25 @@ server.addTool({
   },
 });
 
+server.addTool({
+  name: "system-battery",
+  description: "Get the current system battery status",
+  parameters: z.object({}),
+  execute: async () => {
+    const command = new Deno.Command(
+      "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+      {
+        args: [
+          "-c",
+          "Get-WmiObject -Class Win32_Battery | Select-Object -Property EstimatedChargeRemaining",
+        ],
+      }
+    );
+    const output = await command.output();
+    return JSON.stringify(new TextDecoder().decode(output.stdout));
+  },
+});
+
 server.start({
   transportType: "stdio",
 });

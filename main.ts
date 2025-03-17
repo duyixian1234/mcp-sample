@@ -56,7 +56,9 @@ const openai = createOpenAI({
 
 async function main() {
   const model = openai(process.env.OPENAI_MODEL!);
-  const messages: CoreMessage[] = [{ role: "user", content: "20+33=?" }];
+  const messages: CoreMessage[] = [
+    { role: "user", content: "系统还有多少电？" },
+  ];
   const response = await generateText({
     model,
     tools,
