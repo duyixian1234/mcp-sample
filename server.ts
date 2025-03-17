@@ -29,12 +29,12 @@ server.addTool({
       {
         args: [
           "-c",
-          "Get-WmiObject -Class Win32_Battery | Select-Object -Property EstimatedChargeRemaining",
+          "Get-WmiObject -Class Win32_Battery | Select-Object -Property EstimatedChargeRemaining | ConvertTo-Json",
         ],
       }
     );
     const output = await command.output();
-    return JSON.stringify(new TextDecoder().decode(output.stdout));
+    return new TextDecoder().decode(output.stdout);
   },
 });
 
